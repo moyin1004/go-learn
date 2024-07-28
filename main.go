@@ -1,8 +1,11 @@
 package main
 
-import "go-learn/design-pattern"
+import (
+	redisaction "go-learn/redis"
+)
 
 func main() {
 	// design.TestMap()
-	design.TestPipeline()
+	// design.TestPipeline()
+	redisaction.ArtleVote("moyin", "text:1")
 }
