@@ -20,7 +20,7 @@ const (
 	ONEDAY = 86400
 )
 
-func ArtleVote(user string, article string) error {
+func ArticleVote(user string, article string) error {
 	ctx := context.Background()
 	cutoff := time.Now().Unix() - 7*ONEDAY
 	articleTime, err := c.ZScore(ctx, "time:", article).Result()
@@ -59,4 +59,13 @@ func TestPipeLine() {
 	// data, err := c.Get(ctx, "test").Result()
 	// fmt.Println(data, err)
 	time.Sleep(10 * time.Second)
+}
+
+func TestPubSub() {
+	ctx := context.Background()
+	pubsub := c.Subscribe(ctx, "channel")
+	ch := pubsub.Channel()
+	for msg := range ch {
+		println(msg.Channel, msg.Payload)
+	}
 }
